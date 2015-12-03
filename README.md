@@ -9,78 +9,21 @@ A simple counter application that does the following:
 * It must persist data back to the server
 
 
-Some other notes:
-* The design, layout, ux, is all up to you.
-* You can change anything you want (server stuff included) as long as the above list is completed.
-* This isn't a backend test, don't make it require any databases.
-* If you decide to use a precompiler of any kind (js/css/etc..) we need to be able to run it with `npm run build`.
-* We don't want to run any `npm install -g whatever` commands. **NO GLOBAL DEPENDENCIES**
-* Tests are good.
-
-A possible layout could be:
-```
-         Counter App
-+-----------------------------+
-| Input                   [+] |
-+-----------------------------+
-+-----------------------------+
-| [x] Bob           [-] 5 [+] |
-| [x] Steve         [-] 1 [+] |
-| [x] Pat           [-] 4 [+] |
-+-----------------------------+
-+-----------------------------+
-| Total                    10 |
-+-----------------------------+
-```
-
 ## Install and start the server
 
 ```
 $ npm install
 $ npm start
-$ npm run build #[optional] use for any precompilers you choose
+$ npm run build
 ```
+## See the UI in action
+Open a browser to [http://localhost:3000] and start counting!
 
-## API endpoints / examples
+## Exclusions
+Due to the nature of the app (a test) I have excluded the following:
 
-> The following endpoints are expecting a `Content-Type: application/json`
+Automated Unit and UI Tests
+Production tasks like react production setting, uglify and compression, etc.
+More efficient or customised use of bootstrap (the whole thing is included).
+Better documentation.
 
-```
-GET /api/v1/counters
-# []
-
-POST {title: "bob"} /api/v1/counter
-# [
-#   {id: "asdf", title: "bob", count: 0}
-# ]
-
-POST {title: "steve"} /api/v1/counter
-# [
-#   {id: "asdf", title: "bob", count: 0},
-#   {id: "qwer", title: "steve", count: 0}
-# ]
-
-POST {id: "asdf"} /api/v1/counter/inc
-# [
-#   {id: "asdf", title: "bob", count: 1},
-#   {id: "qwer", title: "steve", count: 0}
-# ]
-
-POST {id: "qwer"} /api/v1/counter/dec
-# [
-#   {id: "asdf", title: "bob", count: 1},
-#   {id: "qwer", title: "steve", count: -1}
-# ]
-
-DELETE {id: "qwer"} /api/v1/counter
-# [
-#   {id: "asdf", title: "bob", count: 1}
-# ]
-
-GET /api/v1/counters
-# [
-#   {id: "asdf", title: "bob", count: 1},
-# ]
-```
-
-> **NOTE:* Each request returns the current state of all counters.
