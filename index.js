@@ -17,9 +17,13 @@ function sendFile(name) {
   };
 }
 
+app.use('/fonts/', express.static(__dirname + '/static/fonts'));
+
 app.get("/", sendFile("index.html"));
 app.get("/app.js", sendFile("app.js"));
+app.get("/lib.js", sendFile("lib.js"));
 app.get("/app.css", sendFile("app.css"));
+
 
 // [json] GET /api/v1/counters
 // => [
@@ -27,7 +31,7 @@ app.get("/app.css", sendFile("app.css"));
 // =>   {id: "zxcv", title: "steve", count: 3}
 // => ]
 app.get("/api/v1/counters", function(req, res) {
-  res.json(Counters.all())
+  res.json(Counters.all());
 });
 
 // [json] POST {title: "bob"} /api/v1/counters
@@ -38,7 +42,7 @@ app.get("/api/v1/counters", function(req, res) {
 // => ]
 app.post("/api/v1/counter", function(req, res) {
   res.json(Counters.create(req.body.title));
-})
+});
 
 // [json] DELETE {id: "asdf"} /api/v1/counter
 // => [
