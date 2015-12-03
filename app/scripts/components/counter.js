@@ -11,7 +11,7 @@ var Counter = React.createClass({
 	getInitialState: function() {
 		return {
 			counters: undefined,
-			waiting: undefined,
+			waiting: false,
 			newTitle: "",
 		};		
 	},
@@ -105,9 +105,14 @@ var Counter = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-12 col-md-6 counter-background last-spacer">
-						<AddCounterForm disable={false} handleAddCounter={this.handleAddCounter} 
+					<div className="col-xs-12 col-md-6 counter-background">
+						<AddCounterForm disable={this.state.waiting} handleAddCounter={this.handleAddCounter} 
 							titleChange={this.titleChange} title={this.state.newTitle}/>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12 col-md-6 counter-change-container last-spacer">
+						<Spinner spin={this.state.waiting}/>
 					</div>
 				</div>
 			</div>
@@ -193,9 +198,8 @@ var AddCounterForm = React.createClass({
 		  		<CounterNameInput onChange={this.props.titleChange} 
 		  			title={this.props.title} 
 		  			titleChange={this.props.titleChange}/>
-		  		<AddCounterBtn  disable = {this.props.disable}/>
-		  		<Spinner spin={this.props.disable}/>
-	  		</form>
+		  		<AddCounterBtn  disable={this.props.disable}/>
+	  		</form>	  		
 	  	</div>
   	);
   },

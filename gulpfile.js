@@ -12,7 +12,7 @@ var source = require('vinyl-source-stream');
 var del = require('del');
 
 gulp.task('default', ['clean'], function() {
-  gulp.start('copy', 'styles', 'libcode', 'appcode', 'fonts');
+  gulp.start('copy', 'styles', 'libcode', 'appcode', 'fonts', 'images');
 });
 
 var DEV_DEST = 'static';
@@ -101,7 +101,7 @@ gulp.task('copy', function () {
 });
 
 gulp.task('images', function () {
-  return gulp.src('app/images/**/*')
+  return gulp.src('app/images/**')
     .pipe($.cache($.imagemin({
       progressive: true,
       interlaced: true

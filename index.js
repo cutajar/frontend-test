@@ -26,6 +26,7 @@ function sendFile(name) {
 }
 
 app.use('/fonts/', express.static(__dirname + '/static/fonts'));
+app.use('/images/', express.static(__dirname + '/static/images'));
 
 app.get("/", sendFile("index.html"));
 app.get("/app.js", sendFile("app.js"));
