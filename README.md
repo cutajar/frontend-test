@@ -22,8 +22,8 @@ Open a browser to [http://localhost:3000] and start counting!
 ## Exclusions
 Due to the nature of the app (a test) I have excluded the following:
 
-Automated Unit and UI Tests
-Production tasks like react production setting, uglify and compression, etc.
-More efficient or customised use of bootstrap (the whole thing is included).
-Better documentation.
+* Automated Unit and UI Tests
+* Production tasks like react production setting, uglify and compression, etc.
+* More efficient or customised use of bootstrap.
+* Better documentation.
 
