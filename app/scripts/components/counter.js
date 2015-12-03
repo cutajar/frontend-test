@@ -1,7 +1,8 @@
-var React = require("react");
-var lod = require("lodash");
-var Spinner = require('./spinner');
 var CounterActionCreator = require('../actions/counteractionscreator');
+var ErrorPanel = require('./error');
+var lod = require("lodash");
+var React = require("react");
+var Spinner = require('./spinner');
 
 var Counter = React.createClass({
 	propTypes: {
@@ -13,6 +14,7 @@ var Counter = React.createClass({
 			counters: undefined,
 			waiting: false,
 			newTitle: "",
+			errorMessage: undefined,
 		};		
 	},
 	componentDidMount: function() {
@@ -59,13 +61,17 @@ var Counter = React.createClass({
 	titleChange: function(e) {
 		this.setState({newTitle: e.target.value});
 	},
-	handleAddCounter: function(e) {
-		//e.preventDefault();
-		this.setState({
-			waiting: true,
-			newTitle: "",
-		});
-		CounterActionCreator.createCounter(this.props.core.dispatcher, this.state.newTitle);
+	addCounter: function() {
+		if (this.state.newTitle === "")  {
+			this.setState({errorMessage: "Please enter a counter name and try again."});
+		} else {
+			this.setState({
+				waiting: true,
+				newTitle: "",
+				errorMessage: undefined,
+			});
+			CounterActionCreator.createCounter(this.props.core.dispatcher, this.state.newTitle);	
+		}		
 	},
 	removeCounterClick: function(e) {
 		var counterID = e.currentTarget.attributes['data-counter-id'].value;
@@ -98,15 +104,16 @@ var Counter = React.createClass({
 		return (
 			<div className="container">
 				<div className="row">
-					<div className="col-xs-12 col-md-6 counter-background">
+					<div className="col-xs-12 col-md-6 ">
 						<h2>Counter Test - Daniel Cutajar</h2>						
+						<ErrorPanel message={this.state.errorMessage}/>
 						{countersComponent}				
 						<CounterTotal count={this.getTotalCount()} />
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-12 col-md-6 counter-background">
-						<AddCounterForm disable={this.state.waiting} handleAddCounter={this.handleAddCounter} 
+					<div className="col-xs-12 col-md-6 ">
+						<AddCounterForm disable={this.state.waiting} handleAddCounter={this.addCounter} 
 							titleChange={this.titleChange} title={this.state.newTitle}/>
 					</div>
 				</div>
@@ -213,7 +220,7 @@ var CounterNameInput = React.createClass({
 	render: function() {
 		return (
 			<div className="form-group">
-				<label htmlFor="addNewCounterInput">Add A Counter:&nbsp;
+				<label htmlFor="addNewCounterInput">Add Counter Name:&nbsp;
 				</label>
 				<input id="addNewCounterInput" 
 					type="text" className="form-control" placeholder="Enter counter title" 
